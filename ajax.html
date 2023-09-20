@@ -11,28 +11,37 @@
     <!-- Listado de títulos de los posts y luego al pinchar en un título sacar su body -->
     <div class="container mt-5">
         <h1 class="mb-4">Títulos</h1>
-        <section id="section" class="list-group">
-
-        </section>
+        <div class="row">
+            <div class="col-md-4">
+                <div id="lista-titulos" class="list-group">
+                    
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div id="titulo-seleccionado" class="mt-3">
+                    
+                </div>
+            </div>
+        </div>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            let section = document.getElementById("section");
+            let listaTitulos = document.getElementById("lista-titulos");
+            let tituloSeleccionado = document.getElementById("titulo-seleccionado");
 
             fetch('https://jsonplaceholder.typicode.com/posts/')
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
                     data.forEach((element, index) => {
                         let botonTitulo = document.createElement("button");
                         botonTitulo.textContent = `${index + 1}. ${element.title}`;
                         botonTitulo.className = "list-group-item list-group-item-action"
 
                         botonTitulo.addEventListener("click", function() {
-                            alert(element.body);
+                            tituloSeleccionado.innerHTML = `<h2>${element.title}</h2><p>${element.body}</p>`;
                         })
 
-                        section.appendChild(botonTitulo);
+                        listaTitulos.appendChild(botonTitulo);
                     });
                 });
         })
